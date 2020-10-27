@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+
+df=pd.read_excel(r'D:\Users\Ashwini\Desktop\project\major\traindata2.xlsx', 'knwldg_lvl')
+df
+
+for col in df.columns:
+    print(col,":",len(df[col].unique()), 'labels')
+
+pd.get_dummies(df,drop_first=True).shape
+
+p=[x for x in df.Business_type.value_counts().sort_values(ascending=False).index]
+p
+
+for label in p:
+    df[label]=np.where(df['Business_type']==label,1,0)
+    
+df[['Business_type']+p]
+
+q=[y for y in df.Experience.value_counts().sort_values(ascending=False).index]
+q
+
+for label in q:
+    df[label]=np.where(df['Experience']==label,1,0)
+        
+df[['Experience']+q]
+
+r=[z for z in df.Occurances.value_counts().sort_values(ascending=False).index]
+r
+
+for label in r:
+    df[label]=np.where(df['Occurances']==label,1,0)
+    
+df[['Occurances']+r]
